@@ -1,62 +1,61 @@
 import React, { useState } from 'react';
+import './App.css';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
+const LoginForm = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleLogin = (event) => {
-    event.preventDefault();
-
-    // Verificar el nombre de usuario y la contraseña
-    if (username === 'usuario' && password === 'contraseña') {
-      setLoggedIn(true);
-      alert('Inicio de sesión exitoso');
-    } else {
-      alert('Nombre de usuario o contraseña incorrectos');
-    }
-  };
-
-  const handleLogout = () => {
-    setLoggedIn(false);
-    setUsername('');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Aquí puedes manejar la respuesta del servidor
+        console.log(data);
+      })
+      .catch((error) => {
+        // Aquí puedes manejar los errores de la solicitud
+        console.error(error);
+      });
+    // Limpia los campos del formulario después de enviar los datos
+    setEmail('');
     setPassword('');
   };
-
-  if (loggedIn) {
-    return (
-      <div>
-        <h1>Bienvenido, {username}!</h1>
-        <button onClick={handleLogout}>Cerrar sesión</button>
-      </div>
-    );
-  } else {
-    return (
-      <form onSubmit={handleLogin}>
-        <input
-          type="text"
-          placeholder="Nombre de usuario"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <button type="submit">Iniciar sesión</button>
+  return (
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2 className="login-form__title">Iniciar sesión</h2>
+        <div className="login-form__field">
+          <label htmlFor="email">Correo electrónico:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="login-form__field">
+          <label htmlFor="password">Contraseña:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="login-form__button">
+          Iniciar sesión
+        </button>
       </form>
-    );
-  }
+    </div>
+  );
 };
 
-export default Login;
+export default LoginForm;
