@@ -46,7 +46,7 @@
   font-size: 16px;
 }
 
-.login-form__button {
+.login-form__button1 {
   padding: 10px 20px;
   border-radius: 4px;
   border: none;
@@ -58,6 +58,22 @@
   transition: background-color 0.3s ease;
 }
 
-.login-form__button:hover {
+.login-form__button1:hover {
+  background-color: #0056b3;
+}
+
+.login-form__button2 {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-form__button2:hover {
   background-color: #0056b3;
 }

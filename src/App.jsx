@@ -50,8 +50,12 @@ const LoginForm = () => {
             required
           />
         </div>
-        <button type="submit" className="login-form__button">
+        <button type="submit" className="login-form__button1">
           Iniciar sesión
+        </button>
+        <hr />
+        <button type="submit" className="login-form__button2">
+          Registrarse
         </button>
       </form>
     </div>
